@@ -33,3 +33,5 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 ## others
 error/
 stats/
+application/config/db_secret.php
+application/config/url_secret.php
