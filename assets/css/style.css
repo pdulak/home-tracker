@@ -1,0 +1,13 @@
+.center {
+    text-align: center;
+}
+
+.last_temp {
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+
+.last_temp h6 {
+    margin-bottom: 0;
+}
