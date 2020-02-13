@@ -35,3 +35,4 @@ error/
 stats/
 application/config/db_secret.php
 application/config/url_secret.php
+application/models/Supla_secret.php
