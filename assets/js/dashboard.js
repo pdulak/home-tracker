@@ -13,7 +13,8 @@ function fill_electricity_meters(element, index, array) {
     this_temp = document.getElementById('electricity');
     new_div = document.createElement('div');
     new_div.id = 'channel_' + element.channel;
-    new_div.innerHTML = '<h3>' + element.label + ' (' + (element.isProducer==1?'Produkcja prądu':'Zużycie prądu') + ')</h3>';
+    new_div.classList.add('column');
+    new_div.innerHTML = '<h2>' + element.label + ' (' + (element.isProducer==1?'Produkcja prądu':'Zużycie prądu') + ')</h2>';
     this_temp.append(new_div);
     load_data_for_channel(element.channel)
 }
@@ -29,15 +30,15 @@ function fill_single_meter(ch, values) {
         this_phase.classList.add('column');
         this_phase.classList.add('center');
         this_phase.innerHTML = '<h5>Faza ' + e.number + '</h5>'
-        this_phase.innerHTML += '<h3>' + e.powerActive.toFixed(2) + ' W</h3>';
-        this_phase.innerHTML += '<h5>' + e.voltage + ' V</h5>';
+        this_phase.innerHTML += '<h5>' + e.powerActive.toFixed(2) + ' W</h5>';
+        this_phase.innerHTML += '<h6>' + e.voltage + ' V</h6>';
         new_row.append(this_phase);
         total_power += e.powerActive;
     });
     global = document.createElement('div');
     global.classList.add('column');
     global.classList.add('center');
-    global.innerHTML = '<h5>Wszystkie fazy</h5><h2>' + total_power.toFixed(2) + ' W</h2>';
+    global.innerHTML = '<h5>Wszystkie fazy</h5><h2>' + total_power.toFixed(0) + ' W</h2>';
     new_row.prepend(global);
 }
 

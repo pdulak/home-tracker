@@ -49,7 +49,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 </div>
 
-<div class="container" id="electricity">
+<div class="container electricity_container">
+    <div class="row" id="electricity">
+    </div>
 </div>
 
 <script src="<?php echo site_url('/') ?>assets/js/Chart.bundle.min.js"></script>
