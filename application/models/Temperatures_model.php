@@ -29,4 +29,16 @@ class Temperatures_model extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result_array();
     }
+
+    public function get_24h_temps()
+    {
+        $sql = "SELECT t.date_timestamp AS dt, t.value AS v, l.id
+                FROM tempMeters AS t
+                    INNER JOIN tempMetersLabels AS l
+                    ON t.address = l.address
+                WHERE date_timestamp > DATE_SUB(NOW(), INTERVAL 24 HOUR)
+                ORDER BY date_timestamp";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
 }

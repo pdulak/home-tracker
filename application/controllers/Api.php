@@ -13,10 +13,14 @@ class Api extends CI_Controller {
         $this->load->library('session');
     }
 
-
     public function last_temp()
     {
         echo json_encode($this->temperatures_model->get_last_temps());
+    }
+
+    public function temp_24h()
+    {
+        echo json_encode($this->temperatures_model->get_24h_temps());
     }
 
     public function electricity_state()

@@ -11,3 +11,12 @@
 .last_temp h6 {
     margin-bottom: 0;
 }
+
+.column h1, 
+.column h2, 
+.column h3, 
+.column h4, 
+.column h5, 
+.column h6 {
+    margin-bottom: 0.2rem;
+}

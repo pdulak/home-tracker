@@ -1,8 +1,12 @@
+var last_temps;
+
 function fill_last_temps(element, index, array) {
     this_temp = document.getElementById('temp_' + element.id);
     this_temp.innerHTML = '<h5>' + element.label + '</h5>';
     this_temp.innerHTML += '<h2>' + element.value + '</h2>';
     this_temp.innerHTML += '<h6>' + element.date_timestamp + '</h6>';
+    this_temp.dataset.address = element.address;
+    this_temp.dataset.id = element.id;
 }
 
 function fill_electricity_meters(element, index, array) {
@@ -40,6 +44,8 @@ function fill_single_meter(ch, values) {
 function load_last_temps() {
     ajax_get('/api/last_temp', function(values){
         values.forEach(fill_last_temps);
+        last_temps = values;
+        load_last_24h_temp();
     });
 }
 
@@ -52,6 +58,22 @@ function load_electricity_counters() {
 function load_data_for_channel(ch) {
     ajax_get('/api/electricity_state?channel=' + ch, function(values){
         fill_single_meter(ch, values);
+    });
+}
+
+function load_last_24h_temp() {
+    ajax_get('/api/temp_24h', function(values){
+        last_temps.forEach(function(e,i,a){
+            // extract chart data
+            this_temp_data = values.filter(function(value){ return value.id == e.id });
+            // find div to place chart in
+            this_div = document.querySelectorAll('div[data-id="' + e.id + '"]')[0];
+            // add canvas
+            new_canvas_id = 'temp_chart_' + e.id; 
+            this_div.innerHTML += '<canvas id="' + new_canvas_id + '"></canvas>';
+            
+            draw_24h_temp(new_canvas_id, this_temp_data);
+        })
     });
 }
 

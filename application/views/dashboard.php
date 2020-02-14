@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
 	<title>Tracker Dashboard</title>
 
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
@@ -48,46 +49,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 </div>
 
-
-<div class="container">
-    <div class="row">
-        <div class="column"></div>
-        <div class="column">
-            <canvas id="myChart"></canvas>
-        </div>
-    </div>
-</div>
-
 <div class="container" id="electricity">
 </div>
 
 <script src="<?php echo site_url('/') ?>assets/js/Chart.bundle.min.js"></script>
 <script src="<?php echo site_url('/') ?>assets/js/tools.js"></script>
+<script src="<?php echo site_url('/') ?>assets/js/tools-charts.js"></script>
 <script src="<?php echo site_url('/') ?>assets/js/dashboard.js"></script>
-
-<script>
-var ctx = document.getElementById('myChart');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [ 1, 2, 3, 4, 5, 6],
-        datasets: [{
-            label: 'test',
-            data: [12, 19, 3, 5, 2, 3],
-            borderColor: 'rgba(200,100,100,1)' ,
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
-</script>
 
 </body>
 </html>
