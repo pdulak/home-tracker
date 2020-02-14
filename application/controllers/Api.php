@@ -22,9 +22,7 @@ class Api extends CI_Controller {
     public function electricity_state()
     {
         $this->load->model('supla_model');
-        
-
-        echo json_encode($this->supla_model->get_counter_state(31938));
+        echo json_encode($this->supla_model->get_counter_state($_GET['channel']));
     }
 
     public function electricity_counters()
