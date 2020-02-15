@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$assetsVersion = '2020021501';
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +9,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<title>Tracker Dashboard</title>
 
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
-    <link rel="stylesheet" href="<?php echo site_url('/') ?>assets/css/normalize.css">
-    <link rel="stylesheet" href="<?php echo site_url('/') ?>assets/css/milligram.css">
-    <link rel="stylesheet" href="<?php echo site_url('/') ?>assets/css/loader.css">
-    <link rel="stylesheet" href="<?php echo site_url('/') ?>assets/css/Chart.min.css">
+    <link rel="stylesheet" href="<?php echo site_url('/') ?>assets/css/normalize.css?v=<?php echo $assetsVersion ?>">
+    <link rel="stylesheet" href="<?php echo site_url('/') ?>assets/css/milligram.css?v=<?php echo $assetsVersion ?>">
+    <link rel="stylesheet" href="<?php echo site_url('/') ?>assets/css/loader.css?v=<?php echo $assetsVersion ?>">
+    <link rel="stylesheet" href="<?php echo site_url('/') ?>assets/css/Chart.min.css?v=<?php echo $assetsVersion ?>">
 
     <link rel="stylesheet" href="<?php echo site_url('/') ?>assets/css/style.css">
 </head>
@@ -55,9 +56,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 
 <script src="<?php echo site_url('/') ?>assets/js/Chart.bundle.min.js"></script>
-<script src="<?php echo site_url('/') ?>assets/js/tools.js"></script>
-<script src="<?php echo site_url('/') ?>assets/js/tools-charts.js"></script>
-<script src="<?php echo site_url('/') ?>assets/js/dashboard.js"></script>
+<script src="<?php echo site_url('/') ?>assets/js/tools.js?v=<?php echo $assetsVersion ?>"></script>
+<script src="<?php echo site_url('/') ?>assets/js/tools-charts.js?v=<?php echo $assetsVersion ?>"></script>
+<script src="<?php echo site_url('/') ?>assets/js/dashboard.js?v=<?php echo $assetsVersion ?>"></script>
 
 </body>
 </html>

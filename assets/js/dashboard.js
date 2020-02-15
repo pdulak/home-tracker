@@ -1,4 +1,5 @@
 var last_temps;
+var electricity_channels;
 
 function fill_last_temps(element, index, array) {
     var this_temp = document.getElementById('temp_' + element.id);
@@ -54,6 +55,8 @@ function load_last_temps() {
 function load_electricity_counters() {
     ajax_get('/api/electricity_counters', function(values){
         values.forEach(fill_electricity_meters);
+        electricity_channels = values;
+        load_last_24h_electricity();
     });
 }
 
@@ -76,6 +79,12 @@ function load_last_24h_temp() {
             
             draw_24h_temp(new_canvas_id, this_temp_data);
         })
+    });
+}
+
+function load_last_24h_electricity() {
+    ajax_get('/api/electricity_24h', function(values){
+        console.log(values);
     });
 }
 

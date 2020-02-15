@@ -1,6 +1,6 @@
 function draw_24h_temp(canvas_id, temp_data) {
     // prepare dataset
-    labels = temp_data.map(function(e){ return e.dt.split(' ')[1]; });
+    labels = temp_data.map(function(e){ return e.dt.split(' ')[1].substring(0,5); });
     data = temp_data.map(function(e){ return e.v; });
 
     var ctx = document.getElementById(canvas_id);
