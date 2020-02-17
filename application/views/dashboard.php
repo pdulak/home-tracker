@@ -20,10 +20,6 @@ $assetsVersion = '2020021501';
 <div class="loading" id="ajax-loader-overlay">Loading&#8230;</div>
 
 <div class="container">
-    <h1>Tracker Dashboard</h1>
-</div>
-
-<div class="container">
     <div class="row">
         <div class="column">
             <div class="center last_temp" id="temp_1">
