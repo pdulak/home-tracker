@@ -3,9 +3,11 @@
 }
 
 .last_temp {
-    border: 1px solid #ccc;
-    border-radius: 1rem;
     margin-bottom: 1rem;
+    border: 1px solid #eee;
+    border-radius: 1rem;
+    border-collapse: collapse;
+    box-shadow: 0 0 12px #ddd;
 }
 
 .last_temp h6 {
@@ -24,4 +26,8 @@
 .electricity_container {
     margin-top: 20px;
     margin-bottom: 50px;
+}
+
+header {
+    margin-bottom: 1rem;
 }

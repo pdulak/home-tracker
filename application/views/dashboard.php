@@ -19,6 +19,27 @@ $assetsVersion = '2020021501';
 <body>
 <div class="loading" id="ajax-loader-overlay">Loading&#8230;</div>
 
+<header></header>
+
+<div class="container electricity_container">
+    <div class="row" id="electricity">
+    </div>
+    <div class="row">
+        <div class="column">
+            <div class="center">
+                <canvas id="channel_chart_31938"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <div class="center">
+                <canvas id="channel_chart_32424"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="column">
@@ -43,11 +64,6 @@ $assetsVersion = '2020021501';
                 Z domu
             </div>
         </div>
-    </div>
-</div>
-
-<div class="container electricity_container">
-    <div class="row" id="electricity">
     </div>
 </div>
 

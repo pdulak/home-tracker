@@ -84,8 +84,32 @@ function load_last_24h_temp() {
 
 function load_last_24h_electricity() {
     ajax_get('/api/electricity_24h', function(values){
-        console.log(values);
+        electricity_delta = calculate_electricity_delta(values);
+        draw_electricity_delta(electricity_delta, electricity_channels);
     });
+}
+
+function calculate_electricity_delta(values) {
+    var channels_last_values = [];
+    var channels_delta = [];
+    values.forEach(function(v){
+        if(channels_last_values[v.channel]) {
+            // calculate delta
+            previous = channels_last_values[v.channel];
+            channels_delta.push({
+                phase1_rae: v.phase1_rae - previous.phase1_rae,
+                phase1_fae: v.phase1_fae - previous.phase1_fae,
+                phase2_rae: v.phase2_rae - previous.phase2_rae,
+                phase2_fae: v.phase2_fae - previous.phase2_fae,
+                phase3_rae: v.phase3_rae - previous.phase3_rae,
+                phase3_fae: v.phase3_fae - previous.phase3_fae,
+                channel: v.channel,
+                dt: v.dt
+            })
+        } 
+        channels_last_values[v.channel] = v;
+    });
+    return channels_delta;
 }
 
 load_last_temps();

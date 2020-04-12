@@ -1,6 +1,48 @@
 <?php
 class Electricity_model extends CI_Model {
 
+    /*
+    * UPDATE `mainElecticityMeter` AS m, `mainElecticityMeter` AS mm
+    * SET m.phase1_rae_delta = m.phase1_rae - coalesce(mm.phase1_rae,0),
+    * m.phase2_rae_delta = m.phase2_rae - coalesce(mm.phase2_rae,0),
+    * m.phase3_rae_delta = m.phase3_rae - coalesce(mm.phase3_rae,0),
+    * m.phase1_fae_delta = m.phase1_fae - coalesce(mm.phase1_fae,0),
+    * m.phase2_fae_delta = m.phase2_fae - coalesce(mm.phase2_fae,0),
+    * m.phase3_fae_delta = m.phase3_fae - coalesce(mm.phase3_fae,0),
+    * m.date_converted = FROM_UNIXTIME(m.date_timestamp)
+    * WHERE m.channel = mm.channel
+    * AND m.date_converted IS NULL
+    * AND mm.date_timestamp < m.date_timestamp
+    * AND mm.date_timestamp > (m.date_timestamp-700)
+
+UPDATE `mainElecticityMeter` AS m, `mainElecticityMeter` AS mm
+     SET m.phase1_rae_delta = m.phase1_rae - coalesce(mm.phase1_rae,0),
+     m.phase2_rae_delta = m.phase2_rae - coalesce(mm.phase2_rae,0),
+     m.phase3_rae_delta = m.phase3_rae - coalesce(mm.phase3_rae,0),
+     m.phase1_fae_delta = m.phase1_fae - coalesce(mm.phase1_fae,0),
+     m.phase2_fae_delta = m.phase2_fae - coalesce(mm.phase2_fae,0),
+     m.phase3_fae_delta = m.phase3_fae - coalesce(mm.phase3_fae,0)
+     WHERE m.date_converted IS NULL
+     AND m.channel = mm.channel
+     AND mm.date_timestamp < m.date_timestamp
+     AND mm.date_timestamp > (m.date_timestamp-700)
+
+
+     UPDATE `mainElecticityMeter` AS m,  `mainElecticityMeter` AS mm
+     SET m.phase1_rae_delta = m.phase1_rae - coalesce(mm.phase1_rae,0),
+     m.phase2_rae_delta = m.phase2_rae - coalesce(mm.phase2_rae,0),
+     m.phase3_rae_delta = m.phase3_rae - coalesce(mm.phase3_rae,0),
+     m.phase1_fae_delta = m.phase1_fae - coalesce(mm.phase1_fae,0),
+     m.phase2_fae_delta = m.phase2_fae - coalesce(mm.phase2_fae,0),
+     m.phase3_fae_delta = m.phase3_fae - coalesce(mm.phase3_fae,0),
+     m.date_converted = FROM_UNIXTIME(m.date_timestamp)
+     WHERE m.date_converted IS NULL
+     AND m.channel = mm.channel
+     AND mm.date_timestamp = (select * from (select max(mmm.date_timestamp) FROM `mainElecticityMeter` AS mmm WHERE mmm.date_timestamp < mm.date_timestamp and mmm.channel = m.channel) as d ) 
+
+
+    */
+
     public function __construct()
     {
         $this->load->database();
