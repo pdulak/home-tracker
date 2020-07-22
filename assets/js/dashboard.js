@@ -56,7 +56,8 @@ function load_electricity_counters() {
     ajax_get('/api/electricity_counters', function(values){
         values.forEach(fill_electricity_meters);
         electricity_channels = values;
-        load_last_24h_electricity();
+        // load_last_24h_electricity();
+        load_monthly_electricity();
     });
 }
 
@@ -89,6 +90,12 @@ function load_last_24h_electricity() {
     });
 }
 
+function load_monthly_electricity() {
+    ajax_get('/api/electricity_monthly', function(values){
+        display_monthly_electricity(values);
+    });
+}
+
 function calculate_electricity_delta(values) {
     var channels_last_values = [];
     var channels_delta = [];
@@ -110,6 +117,81 @@ function calculate_electricity_delta(values) {
         channels_last_values[v.channel] = v;
     });
     return channels_delta;
+}
+
+function return_empty_monthly_row() {
+    return {
+        date: '',
+        production: 0,
+        selfConsumption: 0,
+        consumption: 0,
+        fedIntoGrid: 0
+    };
+}
+
+function display_monthly_electricity(values) {
+    var currentRow = return_empty_monthly_row();
+    var lastRow = return_empty_monthly_row();
+
+    values.forEach(function(item, index) {
+        thisRowDate = '' + item.y + '/' + item.m;
+        if (thisRowDate != currentRow.date) {
+            add_row_to_monthly_table(currentRow, lastRow);
+            lastRow = currentRow;
+            currentRow = return_empty_monthly_row();
+            currentRow.date = thisRowDate;
+        }
+        if (item.channel == "31938") { //main counter
+            currentRow.consumption = Math.round((parseInt(item.p1f) + parseInt(item.p2f) + parseInt(item.p3f))/100000);
+            currentRow.fedIntoGrid = Math.round((parseInt(item.p1r) + parseInt(item.p2r) + parseInt(item.p3r))/100000);
+        }
+        if (item.channel == "32424") { //main counter
+            currentRow.production = Math.round((parseInt(item.p1r) + parseInt(item.p2r) + parseInt(item.p3r))/100000);
+        }
+    })
+
+    add_row_to_monthly_table(currentRow, lastRow);
+}
+
+function add_row_to_monthly_table(rowData, lastRowData) {
+    var tbody = document.querySelector("#monthly_table table tbody");
+    
+    if (rowData.date != '') {
+        // calculate self consumption
+        if ((rowData.production == 0) && (rowData.fedIntoGrid > 0)) {
+            rowData.production = rowData.fedIntoGrid;
+        }
+        rowData.selfConsumption = rowData.production - rowData.fedIntoGrid;
+        if ((lastRowData.production == 0) && (lastRowData.fedIntoGrid > 0)) {
+            lastRowData.production = lastRowData.fedIntoGrid;
+        }
+        lastRowData.selfConsumption = lastRowData.production - lastRowData.fedIntoGrid;
+        
+        var row = tbody.insertRow(-1);
+        var cdate = row.insertCell(0);
+        var cprod = row.insertCell(1);
+        var cconsprod = row.insertCell(2);
+        var ccons = row.insertCell(3);
+        var cfed = row.insertCell(4);
+        var cconstotal = row.insertCell(5);
+        var cconscalc = row.insertCell(6);
+
+        cdate.innerHTML = rowData.date;
+        cprod.innerHTML = '' + (rowData.production - lastRowData.production) + ' kWh<br />' + 
+             rowData.production + ' kWh';
+        cconsprod.innerHTML = '' + (rowData.selfConsumption - lastRowData.selfConsumption) + ' kWh<br />' + 
+             rowData.selfConsumption + ' kWh';
+        ccons.innerHTML = '' + (rowData.consumption - lastRowData.consumption) + ' kWh<br />' + 
+             rowData.consumption + ' kWh';
+        cfed.innerHTML = '' + (rowData.fedIntoGrid - lastRowData.fedIntoGrid) + ' kWh<br />' + 
+             rowData.fedIntoGrid + ' kWh';
+        cconstotal.innerHTML = '' + 
+            ((rowData.selfConsumption + rowData.consumption) - (lastRowData.selfConsumption + lastRowData.consumption)) + ' kWh<br />' +
+            (rowData.selfConsumption + rowData.consumption) + ' kWh';
+        cconscalc.innerHTML = '' + 
+            Math.round(rowData.consumption - (0.8 * rowData.fedIntoGrid) - (lastRowData.consumption - (0.8 * lastRowData.fedIntoGrid)) ) + ' kWh<br />' + 
+            Math.round(rowData.consumption - (0.8 * rowData.fedIntoGrid)) + ' kWh';
+    }
 }
 
 load_last_temps();

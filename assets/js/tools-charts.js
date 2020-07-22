@@ -95,7 +95,7 @@ function draw_single_channel(el_data, canvas_id) {
             scales: {
                 yAxes: [{
                     ticks: {
-                        suggestedMin: -20000,
+                        suggestedMin: 0,
                         suggestedMax: 20000,
                     },
                     // type: 'logarithmic',

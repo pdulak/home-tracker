@@ -24,7 +24,7 @@ $assetsVersion = '2020021501';
 <div class="container electricity_container">
     <div class="row" id="electricity">
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="column">
             <div class="center">
                 <canvas id="channel_chart_31938"></canvas>
@@ -37,6 +37,24 @@ $assetsVersion = '2020021501';
                 <canvas id="channel_chart_32424"></canvas>
             </div>
         </div>
+    </div> -->
+    <div class="row" id="monthly_table">
+        <table>
+            <thead>
+                <tr>
+                    <th>miesiąc</th>
+                    <th>produkcja</th>
+                    <th>zużycie z produkcji</th>
+                    <th>zużycie z elektrowni</th>
+                    <th>oddane</th>
+                    <th>zużycie całkowite</th>
+                    <th>zużycie minus magazyn (oddane*0.8)</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
 </div>
 

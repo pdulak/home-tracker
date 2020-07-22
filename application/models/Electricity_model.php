@@ -63,4 +63,20 @@ UPDATE `mainElecticityMeter` AS m, `mainElecticityMeter` AS mm
         return $query->result_array();
     }
 
+    public function get_monthly_counters()
+    {
+        $sql = "SELECT max(phase1_rae) as p1r, 
+                    max(phase1_fae) as p1f, 
+                    max(phase2_rae) as p2r, 
+                    max(phase2_fae) as p2f, 
+                    max(phase3_rae) as p3r, 
+                    max(phase3_fae) as p3f, 
+                    channel, month(FROM_UNIXTIME(date_timestamp)) AS m, year(FROM_UNIXTIME(date_timestamp)) AS y  
+                FROM `mainElecticityMeter`
+                GROUP BY channel, month(FROM_UNIXTIME(date_timestamp)), year(FROM_UNIXTIME(date_timestamp)) 
+                ORDER BY year(FROM_UNIXTIME(date_timestamp)) , month(FROM_UNIXTIME(date_timestamp)), channel";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
 }

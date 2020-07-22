@@ -38,4 +38,11 @@ class Api extends CI_Controller {
     {
         echo json_encode($this->electricity_model->get_24h_counters());
     }
+
+    public function electricity_monthly()
+    {
+        echo json_encode($this->electricity_model->get_monthly_counters());
+    }
+
+    
 }
